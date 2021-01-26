@@ -9,10 +9,13 @@
     'maintainer': 'Odoo Mates',
     'website': 'odoomates.com',
     'live_test_url': 'https://www.youtube.com/watch?v=BDepk0LhVuI&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=1',
-    'depends': ['sale', 'mail', 'board', 'website'],
+    'depends': ['sale',
+                'mail',
+                'board',
+                'website'],
     'demo': [],
     'data': [
-        # 'views/sale_view.xml'
+        'views/sale_view.xml'
     ],
     # 'images': ['static/description/banner.png'],
     'installable': True,
