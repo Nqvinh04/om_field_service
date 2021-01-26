@@ -11,6 +11,7 @@
     'live_test_url': 'https://www.youtube.com/watch?v=BDepk0LhVuI&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=1',
     'depends': ['sale',
                 'mail',
+                'product',
                 'board',
                 'website'],
     'demo': [],

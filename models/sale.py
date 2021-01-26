@@ -11,5 +11,15 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     assign_id = fields.Many2one('res.partner', string="Assign")
+    # type = fields.Selection([
+    #     ('consu', 'Consumable'),
+    #     ('service', 'Service')], string='Product Type', default='consu')
+    type = fields.Char('Product Type')
 
-    
+    # def type_product(self):
+
+
+
+
+
+
