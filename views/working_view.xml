@@ -49,14 +49,13 @@
         </field>
     </record>
 
-    <record id="menu_view_inherit" model="ir.ui.view">
-        <field name="name">Menu Inherit</field>
-    </record>
+<!--    <menuitem id="all_working"-->
+<!--                  name="Working"-->
+<!--                  parent="stock.menu_stock_warehouse_mgmt"-->
+<!--                  action="working_action"/>-->
 
     <menuitem id="all_working"
-              name="Working"
-              parent="menu_stock_warehouse_mgmt"
-              sequence="6"
-              action="working_action"/>
-
+                  name="Working"
+                  parent="sale.sale_menu_root" sequence="8"
+                  action="working_action"/>
 </odoo>

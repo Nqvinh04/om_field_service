@@ -18,7 +18,8 @@
     'demo': [],
     'data': [
         'views/sale_view.xml',
-        'views/product_view.xml'
+        'views/product_view.xml',
+        'views/working_view.xml'
     ],
     # 'images': ['static/description/banner.png'],
     'installable': True,
