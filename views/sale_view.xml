@@ -8,9 +8,9 @@
             <field name="arch" type="xml">
                <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_uom_qty']"
                       position="before">
-                   <field name="type" invisible="1"/>
-                   <field name="assign_id" attrs="{'invisible': [('type','!=', 'service')]}"/>
-                   <!--                    <field name="assign_id"/>-->
+                   <field name="type"/>
+<!--                   <field name="assign_id"/>-->
+                   <field name="assign_id" attrs="{'readonly': [('type','!=', 'service')]}"/>
                </xpath>
             </field>
         </record>

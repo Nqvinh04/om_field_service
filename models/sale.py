@@ -8,15 +8,19 @@ from odoo import models, fields, api, _
 #     assign_id = fields.Many2one('res.users', string="Assign")
 
 class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
+    _inherit = ['sale.order.line']
 
-    assign_id = fields.Many2one('res.partner', string="Assign")
-    # type = fields.Selection([
-    #     ('consu', 'Consumable'),
-    #     ('service', 'Service')], string='Product Type', default='consu')
-    type = fields.Char('Product Type')
+    assign_id = fields.Many2one('res.partner', string='Assign')
+    type = fields.Selection(related='product_id.type', string="Type", )
 
-    # def type_product(self):
+    # def _type_product_id(self):
+
+
+
+
+
+
+
 
 
 
