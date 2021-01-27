@@ -13,7 +13,7 @@ class SaleOrderLine(models.Model):
     assign_id = fields.Many2one('res.partner', string='Assign')
     type = fields.Selection(related='product_id.type', string="Type", )
 
-    # def _type_product_id(self):
+
 
 
 
