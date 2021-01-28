@@ -49,13 +49,13 @@
         </field>
     </record>
 
-<!--    <menuitem id="all_working"-->
-<!--                  name="Working"-->
-<!--                  parent="stock.menu_stock_warehouse_mgmt"-->
-<!--                  action="working_action"/>-->
-
     <menuitem id="all_working"
                   name="Working"
-                  parent="sale.sale_menu_root" sequence="8"
+                  parent="stock.menu_stock_warehouse_mgmt"
                   action="working_action"/>
+
+<!--    <menuitem id="all_working"-->
+<!--                  name="Working"-->
+<!--                  parent="sale.sale_menu_root" sequence="8"-->
+<!--                  action="working_action"/>-->
 </odoo>
