@@ -16,13 +16,24 @@ class Working(models.Model):
     parent_address = fields.Many2one(string="Address")
     phone = fields.Many2one(string="Phone")
     assign_id = fields.Many2one(string="Assign")
-    # state = fields.Selection([
-    #     ('draft', 'Draft'),
-    #     ('waiting', 'Waiting Another Operation'),
-    #     ('confirmed', 'Waiting'),
-    #     ('assigned', 'Ready'),
-    #     ('done', 'Done'),
-    #     ('cancel', 'Cancelled'),
-    # ], string="Status")
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('waiting', 'Waiting Another Operation'),
+        ('confirmed', 'Waiting'),
+        ('assigned', 'Ready'),
+        ('done', 'Done'),
+        ('cancel', 'Cancelled'),
+    ], string="Status")
+
+    completed_work = fields.Selection([
+        ('incomplete', 'Incomplete'),
+        ('completed', 'Completed')
+    ], string="Completed", default=False)
+
+    def action_cancel(self):
+        print("Cancel")
+
+    def action_completed(self):
+        print("Completed")
 
 
