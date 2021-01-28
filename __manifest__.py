@@ -17,6 +17,7 @@
                 'website'],
     'demo': [],
     'data': [
+        'security/ir.model.access.csv',
         'views/sale_view.xml',
         'views/product_view.xml',
         'views/working_view.xml'
