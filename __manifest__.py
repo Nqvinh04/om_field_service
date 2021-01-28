@@ -20,7 +20,8 @@
         'security/ir.model.access.csv',
         'views/sale_view.xml',
         'views/product_view.xml',
-        'views/working_view.xml'
+        'views/working_view.xml',
+        'views/sale_order_view.xml'
     ],
     # 'images': ['static/description/banner.png'],
     'installable': True,

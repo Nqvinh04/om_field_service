@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">view.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_invoice']" position="before">
+                    <button type="object"
+                            name="action_view_work"
+                            class="oe_stat_button"
+                            icon="fa-th-list"
+                            attrs="{'invisible':('working_count', '!=', 0)}">
+                        <field name="working_count" widget="statinfo" string="Work"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
