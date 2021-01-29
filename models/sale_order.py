@@ -15,8 +15,17 @@ class SaleOrder(models.Model):
         for order in self:
             order.working_count = len(order.working_ids)
 
+
     def action_confirm(self):
-        print('working.ok')
+        super(SaleOrder, self).action_confirm()
+        self.env['working'].create({
+            'name': self.name,
+            'origin': self.origin,
+            'parent_name': self.name,
+            # 'phone': self.phone,
+            # 'assign': self.sale_order_line_id.assign_id,
+        })
+
 
 
 
