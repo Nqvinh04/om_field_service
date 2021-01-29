@@ -15,4 +15,12 @@ class SaleOrder(models.Model):
         for order in self:
             order.working_count = len(order.working_ids)
 
+    def action_confirm(self):
+        print('working.ok')
+
+
+
+
+
+
 
