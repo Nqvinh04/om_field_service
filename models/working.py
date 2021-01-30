@@ -14,9 +14,9 @@ class Working(models.Model):
 
     parent_name = fields.Many2one(string="Name")
     parent_address = fields.Many2one(string="Address")
-    phone = fields.Many2one(string="Phone")
+    phone = fields.Integer(string="Phone")
     assign_id = fields.Many2one(string="Assign")
-    state = fields.Selection([
+    state_working = fields.Selection([
         ('draft', 'Draft'),
         ('waiting', 'Waiting Another Operation'),
         ('confirmed', 'Waiting'),
@@ -24,6 +24,8 @@ class Working(models.Model):
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
     ], string="Status")
+    # sale_id = fields.Many2one(related='group_id.sale.order')
+    sale_id = fields.Many2one('sale.order')
 
     completed_work = fields.Selection([
         ('incomplete', 'Incomplete'),

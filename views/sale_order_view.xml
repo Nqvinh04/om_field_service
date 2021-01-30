@@ -7,11 +7,13 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_view_invoice']" position="before">
+                    <field name="working_ids" invisible="1"/>
                     <button type="object"
                             name="action_view_work"
                             class="oe_stat_button"
                             icon="fa-th-list"
-                            attrs="{'invisible':('working_count', '!=', 0)}">
+                            attrs="{'invisible':('working_count', '=', 0)}"
+                            groups="base.group_user">
                         <field name="working_count" widget="statinfo" string="Work"/>
                     </button>
                 </xpath>
