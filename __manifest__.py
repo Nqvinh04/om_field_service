@@ -12,6 +12,7 @@
     'depends': ['sale',
                 'mail',
                 'stock',
+                'hr',
                 'product',
                 'board',
                 'website'],

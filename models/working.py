@@ -12,11 +12,11 @@ class Working(models.Model):
     end_time = fields.Datetime(string="End Time")
     origin = fields.Many2one('sale.order', string="Source Document")
     sale_order_line_id = fields.Many2one('sale.order')
-    partner_id = fields.Many2one('res.partner')
-    parent_name = fields.Char(related='partner_id.name', string="Name")
-    parent_address = fields.Text(string="Address")
-    phone = fields.Char(related='partner_id.phone', string="Phone")
-    assign = fields.Many2one(string="Assign")
+    partner_id = fields.Many2one('res.partner', string="Name")
+    # parent_name = fields.Many2one('partner_id.name', string="Name")
+    partner_address = fields.Text(string="Address")
+    partner_phone = fields.Char(string="Phone", related='partner_id.phone')
+    assign = fields.Many2one('hr.employee', string="Assign")
     state_working = fields.Selection([
         ('draft', 'Draft'),
         ('waiting', 'Waiting Another Operation'),
@@ -40,5 +40,6 @@ class Working(models.Model):
 
     def action_completed(self):
         print("Completed")
+
 
 

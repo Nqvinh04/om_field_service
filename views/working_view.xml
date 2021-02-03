@@ -17,9 +17,10 @@
                     </div>
                     <group>
                         <group>
-                            <field name="parent_name"/>
-                            <field name="parent_address"/>
-                            <field name="phone"/>
+                            <field name="partner_id"/>
+<!--                            <field name="parent_name"/>-->
+                            <field name="partner_address"/>
+                            <field name="partner_phone"/>
                         </group>
                         <group>
                             <field name="assign"/>
@@ -54,7 +55,8 @@
                 <field name="name"/>
                 <field name="origin"/>
                 <field name="start_time"/>
-                <field name="parent_name"/>
+                <field name="partner_id"/>
+<!--                <field name="parent_name"/>-->
                 <field name="assign"/>
                 <field name="state_working"/>
                 <field name="completed_work" invisible="1"/>
