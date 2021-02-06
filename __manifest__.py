@@ -19,6 +19,7 @@
     'demo': [],
     'data': [
         'security/ir.model.access.csv',
+        'data/sequence_data.xml',
         'views/sale_view.xml',
         'views/product_view.xml',
         'views/working_view.xml',
