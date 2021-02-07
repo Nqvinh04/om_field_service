@@ -8,11 +8,11 @@ class Working(models.Model):
     _description = "People are working"
     # _inherit = 'sale.order.line'
 
-    name = fields.Char(string=" Service", copy=False, readonly=True, index=True, default=lambda self: _('New'))
+    name = fields.Char(string="Working ID", copy=False, readonly=True, index=True, default=lambda self: _('New'))
     # name_seq = fields.Char(string='Working ID', copy=False, readonly=True, index=True, default=lambda self: _('New'))
     start_time = fields.Datetime(string="Start Time", default=fields.Datetime.now, inverse='')
     end_time = fields.Datetime(string="End Time")
-    origin = fields.Many2one('sale.order', string="Source Document")
+    origin = fields.Char(string="Source Document", index=True)
     sale_order_line_id = fields.Many2one('sale.order.line')
     partner_id = fields.Many2one('res.partner', string="Name")
     # parent_name = fields.Many2one('partner_id.name', string="Name")

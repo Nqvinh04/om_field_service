@@ -5,9 +5,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     partner_id = fields.Many2one('res.partner')
-    sale_order_line_id = fields.Many2one('res.partner')
     product_id = fields.Many2one('product.template')
-    # employee_id = fields.Many2one('res.employee')
     working_ids = fields.One2many('working', 'sale_id', string='Working')
     working_count = fields.Integer(string="Working Orders", computed='_compute_working_ids')
 
@@ -23,16 +21,11 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         super(SaleOrder, self).action_confirm()
         self.env['working'].create({
-            # 'name': self.name,
             'partner_id': self.partner_id.id,
-            # 'origin': self.name,
-            # 'assign': self.assign_id,
+            'origin': self.name,
+            # 'assign': self.order_line.assign_id,
+            # 'sale_order_line_id': self.order_line.id,
         })
-
-
-
-
-
 
 
 

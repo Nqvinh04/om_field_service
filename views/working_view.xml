@@ -22,12 +22,13 @@
 <!--                            <field name="parent_name"/>-->
                             <field name="partner_address"/>
                             <field name="partner_phone"/>
+                            <field name="sale_order_line_id"/>
                         </group>
                         <group>
                             <field name="assign"/>
                             <field name="start_time"/>
                             <field name="end_time"/>
-                            <field name="origin"/>
+                            <field name="origin" placeholder="e.g. SO0001"/>
                         </group>
                     </group>
                     <notebook>
@@ -53,9 +54,8 @@
         <field name="model">working</field>
         <field name="arch" type="xml">
             <tree string="Working list">
-                <field name="name" invisible="1"/>
-<!--                <field name="name_seq"/>-->
-                <field name="origin"/>
+                <field name="name"/>
+                <field name="origin" invisible="1"/>
                 <field name="start_time"/>
                 <field name="partner_id"/>
 <!--                <field name="parent_name"/>-->
