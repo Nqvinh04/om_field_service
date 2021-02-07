@@ -12,8 +12,9 @@
                     <button type="object"
                             name="action_view_work"
                             class="oe_stat_button"
+                            optional="hide"
                             icon="fa-th-list"
-                            attrs="{'invisible':('working_count', '=', 0)}"
+                            attrs="{'readonly':('working_count', '>', 0)}"
                             groups="base.group_user">
                         <field name="working_count" widget="statinfo" string="Work"/>
                     </button>

@@ -18,7 +18,8 @@ class Working(models.Model):
     # parent_name = fields.Many2one('partner_id.name', string="Name")
     partner_address = fields.Text(string="Address")
     partner_phone = fields.Char(string="Phone", related='partner_id.phone')
-    assign = fields.Many2one('hr.employee', string="Assign", related='sale_order_line_id.assign_id')
+    # assign = fields.Many2one('hr.employee', string="Assign", related='sale_order_line_id.assign_id')
+    assign = fields.Many2one('hr.employee', string="Assign")
     state_working = fields.Selection([
         ('draft', 'Draft'),
         ('waiting', 'Waiting Another Operation'),

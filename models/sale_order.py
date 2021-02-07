@@ -12,21 +12,31 @@ class SaleOrder(models.Model):
     def action_view_work(self):
         print("thanh Cong")
 
+
+
     @api.depends('working_ids')
     def _compute_working_ids(self):
         for order in self:
             order.working_count = len(order.working_ids)
-
+            print(order.working_count)
 
     def action_confirm(self):
         for rec in self.order_line:
             if rec.type == 'service':
                 super(SaleOrder, self).action_confirm()
-                self.env['working'].create({
-                    'partner_id': self.partner_id.id,
-                    'origin': self.name,
-                    'sale_order_line_id': rec,
-                })
+                print(rec.assign_id.id)
+                print(self.working_ids)
+                # print(self.)
+                if rec.assign_id.id != self.working_ids.assign.id:
+                    self.env['working'].create({
+                        'partner_id': self.partner_id.id,
+                        'origin': self.name,
+                        'assign': rec.assign_id.id,
+                        'sale_order_line_id': rec,
+                    })
+                else:
+                    print('ko tao moi')
+
 
 
 
