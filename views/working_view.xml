@@ -12,26 +12,39 @@
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name"/>
+                            <field name="name" attrs="{'invisible': [('name','=','/')]}"/>
+<!--                            <field name="name_seq" />-->
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="parent_name"/>
-                            <field name="parent_address"/>
-                            <field name="phone"/>
+                            <field name="partner_id"/>
+<!--                            <field name="parent_name"/>-->
+                            <field name="partner_address"/>
+                            <field name="partner_phone"/>
+                            <field name="sale_order_line_id" invisible="1"/>
                         </group>
                         <group>
-                            <field name="assign_id"/>
+                            <field name="assign"/>
                             <field name="start_time"/>
                             <field name="end_time"/>
-                            <field name="origin"/>
+                            <field name="origin" placeholder="e.g.SO0001"/>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Detailed Work">
+<!--                        <page string="Detailed Work" attrs="">-->
+<!--                        </page>-->
+                        <page string="Operations" name="operations">
+                            <field name="sale_order_line_id" mode="tree">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="product_uom_qty"/>
+                                </tree>
+                            </field>
                         </page>
-                        <page string="Note">
+                        <page string="Note" name="note">
+                           <field name="note" string="Note" placeholder="Add an internal note that will be printed on the Picking Operations sheet"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -51,10 +64,11 @@
         <field name="arch" type="xml">
             <tree string="Working list">
                 <field name="name"/>
-                <field name="origin"/>
+                <field name="origin" invisible="1"/>
                 <field name="start_time"/>
-                <field name="parent_name"/>
-                <field name="assign_id"/>
+                <field name="partner_id"/>
+<!--                <field name="parent_name"/>-->
+                <field name="assign"/>
                 <field name="state_working"/>
                 <field name="completed_work" invisible="1"/>
                 <button name="action_completed" string="Incomplete" type="object"/>
