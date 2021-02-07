@@ -19,13 +19,14 @@ class SaleOrder(models.Model):
 
 
     def action_confirm(self):
-        super(SaleOrder, self).action_confirm()
-        self.env['working'].create({
-            'partner_id': self.partner_id.id,
-            'origin': self.name,
-            # 'assign': self.order_line.assign_id,
-            # 'sale_order_line_id': self.order_line.id,
-        })
+        for rec in self.order_line:
+            if rec.type == 'service':
+                super(SaleOrder, self).action_confirm()
+                self.env['working'].create({
+                    'partner_id': self.partner_id.id,
+                    'origin': self.name,
+                    'sale_order_line_id': rec,
+                })
 
 
 
