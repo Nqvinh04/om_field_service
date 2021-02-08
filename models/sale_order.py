@@ -12,8 +12,6 @@ class SaleOrder(models.Model):
     def action_view_work(self):
         print("thanh Cong")
 
-
-
     @api.depends('working_ids')
     def _compute_working_ids(self):
         for order in self:
@@ -22,7 +20,7 @@ class SaleOrder(models.Model):
 
     def action_confirm(self):
         for rec in self.order_line:
-            if rec.type == 'service':
+            if rec.type == 'service' and rec.working_ok == True:
                 super(SaleOrder, self).action_confirm()
                 print(rec.assign_id.id)
                 print(self.working_ids)
@@ -34,9 +32,20 @@ class SaleOrder(models.Model):
                         'assign': rec.assign_id.id,
                         'sale_order_line_id': rec,
                     })
-                else:
-                    print('ko tao moi')
+            else:
+                print('ko tao moi')
+            # else:
+            #     self.working_ok_notification()
 
 
-
-
+    # def working_ok_notification(self):
+    #     notification = {
+    #         'type': 'ir.actions.client',
+    #         'tag': 'display_notification',
+    #         'params': {
+    #             'title': _('Notification'),
+    #             'message': _('Chua san sang'),
+    #             'sticky': False
+    #         }
+    #     }
+    #     return notification
