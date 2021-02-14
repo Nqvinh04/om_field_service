@@ -22,9 +22,6 @@ class SaleOrder(models.Model):
         for rec in self.order_line:
             if rec.type == 'service' and rec.working_ok == True:
                 super(SaleOrder, self).action_confirm()
-                print(rec.assign_id.id)
-                print(self.working_ids)
-                # print(self.)
                 if rec.assign_id.id != self.working_ids.assign.id:
                     self.env['working'].create({
                         'partner_id': self.partner_id.id,

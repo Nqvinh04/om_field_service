@@ -1,3 +1,4 @@
+
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 
@@ -26,7 +27,7 @@ class Working(models.Model):
         # ('completed', 'Completed'),
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
-    ], string="Status", computed='_compute_state_working')
+    ], string="Status", readonly=True, default='draft')
 
     note = fields.Text(string='Notes')
     # sale_id = fields.Many2one(related='group_id.sale.order')
@@ -54,6 +55,20 @@ class Working(models.Model):
         print("Completed")
         for rec in self:
             rec.state_working = 'done'
+            # rec.write_working()
+
+    # def write_working(self):
+    #     self.env['working'].write({
+    #         'end_time': fields.Datetime.now,
+    #     })
+
+
+    # def write_working(self, vals):
+    #     result = super(Working, self).write(vals)
+    #     self.env['working'].write({
+    #         'end_time': fields.Datetime.now,
+    #     })
+    #     return result
 
     # def action_done(self):
     #     print("Done")
@@ -78,12 +93,12 @@ class Working(models.Model):
             if working.state_working == 'draft':
                 working.show_get_job = True
 
-    @api.depends('sale_order_line_id.state', 'sale_order_line_id.working_id')
-    def _compute_state_working(self):
-        for working in self:
-            if working.sale_order_line_id:
-                working.state_working == 'draft'
-            
+    # @api.depends('sale_order_line_id.state', 'sale_order_line_id.working_id')
+    # def _compute_state_working(self):
+    #     for working in self:
+    #         if working.sale_order_line_id:
+    #             working.state_working == 'draft'
+
 
     def _set_start_time(self):
         for working in self:
@@ -97,5 +112,3 @@ class Working(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('working.sequence') or _('new')
         result = super(Working, self).create(vals)
         return result
-
-

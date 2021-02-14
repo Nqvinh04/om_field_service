@@ -77,7 +77,7 @@
                 <field name="assign"/>
                     <field name="state_working" widget="badge" decoration-success="state_working == 'done'" decoration-info="state_working not in ('done', 'cancel')"/>
                 <field name="completed_work" invisible="1"/>
-                <button name="action_completed" string="Incomplete" type="object"/>
+                <button name="action_completed" string=" Complete" type="object" class="oe_highlight"/>
             </tree>
         </field>
     </record>
