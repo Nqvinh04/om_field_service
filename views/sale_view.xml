@@ -21,7 +21,7 @@
             <field name="inherit_id"  ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='tax_id']" position="after">
-                    <field name="state_working"/>
+                    <field name="state_working" widget="badge" decoration-success="state_working == 'done'" decoration-info="state_working not in ('done', 'cancel')"/>
                 </xpath>
             </field>
         </record>

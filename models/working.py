@@ -22,27 +22,68 @@ class Working(models.Model):
     assign = fields.Many2one('hr.employee', string="Assign")
     state_working = fields.Selection([
         ('draft', 'Draft'),
-        ('waiting', 'Waiting Another Operation'),
-        ('confirmed', 'Waiting'),
-        ('assigned', 'Ready'),
+        ('confirmed', 'Confirm'),
+        # ('completed', 'Completed'),
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
-    ], string="Status")
+    ], string="Status", computed='_compute_state_working')
 
     note = fields.Text(string='Notes')
     # sale_id = fields.Many2one(related='group_id.sale.order')
     sale_id = fields.Many2one('sale.order')
+
+
+    show_get_job = fields.Boolean(computed='_compute_show_get_job')
+    show_check_availability = fields.Boolean(computed='_compute_show_check_availability')
+    show_completed = fields.Boolean(computed='_compute_show_completed')
 
     completed_work = fields.Selection([
         ('incomplete', 'Incomplete'),
         ('completed', 'Completed')
     ], string="Completed", default=False)
 
-    def action_cancel(self):
-        print("Cancel")
+    def action_confirm(self):
+        print("action")
+        for rec in self:
+            rec.state_working = 'confirmed'
+
+    def action_assign(self):
+        print("assign")
 
     def action_completed(self):
         print("Completed")
+        for rec in self:
+            rec.state_working = 'done'
+
+    # def action_done(self):
+    #     print("Done")
+    #     for rec in self:
+    #         rec.state_working = 'done'
+
+    def action_cancel(self):
+        print("Cancel")
+        for rec in self:
+            rec.state_working = 'cancel'
+
+    def _compute_show_check_availability(self):
+        print("show_check_availability")
+
+    def _compute_show_completed(self):
+        print("show_completed")
+
+
+    @api.depends('state_working', 'sale_order_line_id')
+    def _compute_show_get_job(self):
+        for working in self:
+            if working.state_working == 'draft':
+                working.show_get_job = True
+
+    @api.depends('sale_order_line_id.state', 'sale_order_line_id.working_id')
+    def _compute_state_working(self):
+        for working in self:
+            if working.sale_order_line_id:
+                working.state_working == 'draft'
+            
 
     def _set_start_time(self):
         for working in self:
