@@ -7,7 +7,7 @@ class SaleOrder(models.Model):
     partner_id = fields.Many2one('res.partner')
     product_id = fields.Many2one('product.template')
     working_ids = fields.One2many('working', 'sale_id', string='Working')
-    working_count = fields.Integer(string="Working Orders", computed='_compute_working_ids')
+    working_count = fields.Integer(string="Working Orders", compute='_compute_working_ids')
 
     def action_view_work(self):
         print("thanh Cong")
@@ -32,6 +32,7 @@ class SaleOrder(models.Model):
                     })
             else:
                 print('ko tao moi')
+
             # else:
             #     self.working_ok_notification()
 
@@ -40,7 +41,7 @@ class SaleOrder(models.Model):
 
     # def working_ok_notification(self):
     #     notification = {
-    #         'type': 'ir.actions.client',
+    #         'type': 'ir.actions.manager',
     #         'tag': 'display_notification',
     #         'params': {
     #             'title': _('Notification'),

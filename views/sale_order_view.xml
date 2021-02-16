@@ -11,7 +11,7 @@
                     <field name="partner_id" invisible="1"/>
                     <button class="oe_stat_button"
                             icon="fa-th-list"
-                            attrs="{'invisible':('working_count', '=', 0)}">
+                            attrs="{'invisible': [('working_count', '=', 0)]}">
                         <field name="working_count" widget="statinfo" string="Work"/>
                     </button>
                 </xpath>
