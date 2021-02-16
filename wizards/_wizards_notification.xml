@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_notification_form" model="ir.ui.view">
+        <field name="name">wizard.notification</field>
+        <field name="model">wizards.notification</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="product_id" invisible="1"/>
+                <field name="message" invisible="1"/>
+                <footer>
+                    <button name="action_ok" string="OK" type="object" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+
+    </record>
+</odoo>

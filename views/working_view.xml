@@ -6,12 +6,12 @@
         <field name="arch" type="xml">
             <form string="Working">
                 <field name="show_get_job" invisible="1"/>
-                <field name="show_check_availability" invisible="1"/>
+<!--                <field name="show_check_availability" invisible="1"/>-->
                 <field name="show_completed" invisible="1"/>
                 <header>
-                    <button name="action_confirm" attrs="{'invisible': [('show_get_job','=','False')]}" string="Confirm" type="object" class="oe_highlight"/>
-                    <button name="action_assign" string="Check Availability" type="object" class="oe_highlight"/>
-                    <button name="action_completed" string="Complete" type="object" class="oe_highlight"/>
+                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"/>
+<!--                    <button name="action_check_availability" attrs="{'invisible': [('show_check_availability','=','False')]}" string="Check Availability" type="object" class="oe_highlight"/>-->
+                    <button name="action_completed"  string="Complete" type="object" class="oe_highlight"/>
                     <button name="action_cancel" string="Cancel" type="object"/>
                     <field name="state_working" widget="statusbar" statusbar_visible="draft,confirmed,completed,done"/>
                 </header>
@@ -73,6 +73,7 @@
                 <field name="origin" invisible="1"/>
                 <field name="start_time"/>
                 <field name="partner_id"/>
+<!--                <field name="sale_order_id" invisible="1"/>-->
 <!--                <field name="parent_name"/>-->
                 <field name="assign"/>
                     <field name="state_working" widget="badge" decoration-success="state_working == 'done'" decoration-info="state_working not in ('done', 'cancel')"/>

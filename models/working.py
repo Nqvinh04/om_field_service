@@ -1,4 +1,3 @@
-
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 
@@ -30,13 +29,14 @@ class Working(models.Model):
     ], string="Status", readonly=True, default='draft')
 
     note = fields.Text(string='Notes')
-    # sale_id = fields.Many2one(related='group_id.sale.order')
-    sale_id = fields.Many2one('sale.order')
-
+    # sale_order_id = fields.Many2one('sale.order')
+    sale_id = fields.Many2one('sale.order', string="Sales Order")
 
     show_get_job = fields.Boolean(computed='_compute_show_get_job')
-    show_check_availability = fields.Boolean(computed='_compute_show_check_availability')
-    show_completed = fields.Boolean(computed='_compute_show_completed')
+    # show_get_job = fields.Boolean(default=True)
+    # show_check_availability = fields.Boolean(computed='_compute_show_check_availability')
+    # show_completed = fields.Boolean(computed='_compute_show_completed')
+    show_completed = fields.Boolean(default=True)
 
     completed_work = fields.Selection([
         ('incomplete', 'Incomplete'),
@@ -45,23 +45,28 @@ class Working(models.Model):
 
     def action_confirm(self):
         print("action")
+        print(self.show_get_job)
         for rec in self:
             rec.state_working = 'confirmed'
+            print(rec.show_get_job)
+        print(self._compute_show_get_job())
+    print(show_get_job)
 
-    def action_assign(self):
-        print("assign")
+    # def action_check_availability(self):
+    #     print("check_availability")
 
     def action_completed(self):
         print("Completed")
+        print(self.show_completed)
         for rec in self:
             rec.state_working = 'done'
             # rec.write_working()
+        print(self._compute_show_completed())
 
     # def write_working(self):
     #     self.env['working'].write({
     #         'end_time': fields.Datetime.now,
     #     })
-
 
     # def write_working(self, vals):
     #     result = super(Working, self).write(vals)
@@ -80,25 +85,38 @@ class Working(models.Model):
         for rec in self:
             rec.state_working = 'cancel'
 
-    def _compute_show_check_availability(self):
-        print("show_check_availability")
+    # @api.depends('state_working', 'sale_order_line_id')
+    # def _compute_show_check_availability(self):
+    #     print("show_check_availability")
 
+    @api.depends('state_working', 'sale_order_line_id')
+    # @api.onchange('state_working')
     def _compute_show_completed(self):
         print("show_completed")
+        for working in self:
+            if working.state_working != 'done':
+                working.show_completed = False
+            else:
+                working.show_completed = True
+            print(self.show_completed)
+
 
 
     @api.depends('state_working', 'sale_order_line_id')
     def _compute_show_get_job(self):
+        print("Hoạt động")
         for working in self:
-            if working.state_working == 'draft':
+            if working.state_working != 'draft':
+                working.show_get_job = False
+            else:
                 working.show_get_job = True
+        print(self.show_get_job)
 
     # @api.depends('sale_order_line_id.state', 'sale_order_line_id.working_id')
     # def _compute_state_working(self):
     #     for working in self:
     #         if working.sale_order_line_id:
     #             working.state_working == 'draft'
-
 
     def _set_start_time(self):
         for working in self:

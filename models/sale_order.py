@@ -16,7 +16,7 @@ class SaleOrder(models.Model):
     def _compute_working_ids(self):
         for order in self:
             order.working_count = len(order.working_ids)
-            print(order.working_count)
+
 
     def action_confirm(self):
         for rec in self.order_line:
@@ -28,11 +28,14 @@ class SaleOrder(models.Model):
                         'origin': self.name,
                         'assign': rec.assign_id.id,
                         'sale_order_line_id': rec,
+                        'sale_id': self.id,
                     })
             else:
                 print('ko tao moi')
             # else:
             #     self.working_ok_notification()
+
+    # def working_ok_notification_wizard(self):
 
 
     # def working_ok_notification(self):
