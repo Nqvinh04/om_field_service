@@ -38,10 +38,10 @@ class Working(models.Model):
     # show_completed = fields.Boolean(computed='_compute_show_completed')
     show_completed = fields.Boolean(default=True)
 
-    completed_work = fields.Selection([
-        ('incomplete', 'Incomplete'),
-        ('completed', 'Completed')
-    ], string="Completed", default=False)
+    # completed_work = fields.Selection([
+    #     ('incomplete', 'Incomplete'),
+    #     ('completed', 'Completed')
+    # ], string="Completed", default=False)
 
     def action_confirm(self):
         print("action")
@@ -75,10 +75,10 @@ class Working(models.Model):
     #     })
     #     return result
 
-    # def action_done(self):
-    #     print("Done")
-    #     for rec in self:
-    #         rec.state_working = 'done'
+    def action_done(self):
+        print("Done")
+        for rec in self:
+            rec.state_working = 'done'
 
     def action_cancel(self):
         print("Cancel")
@@ -90,7 +90,6 @@ class Working(models.Model):
     #     print("show_check_availability")
 
     @api.depends('state_working', 'sale_order_line_id')
-    # @api.onchange('state_working')
     def _compute_show_completed(self):
         print("show_completed")
         for working in self:
