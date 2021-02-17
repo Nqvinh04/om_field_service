@@ -30,6 +30,7 @@ class SaleOrder(models.Model):
                         'sale_order_line_id': rec,
                         'sale_id': self.id,
                     })
+
             else:
                 print('ko tao moi')
 

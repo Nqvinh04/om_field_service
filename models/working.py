@@ -8,15 +8,15 @@ class Working(models.Model):
     _description = "People are working"
     # _inherit = 'sale.order.line'
 
-    name = fields.Char(string="Working ID", copy=False, readonly=True, index=True, default=lambda self: _('New'))
+    name = fields.Char(string="Working ID", copy=False, index=True, default=lambda self: _('New'))
     # name_seq = fields.Char(string='Working ID', copy=False, readonly=True, index=True, default=lambda self: _('New'))
-    start_time = fields.Datetime(string="Start Time", default=fields.Datetime.now, inverse='')
+    start_time = fields.Datetime(string="Start Time", default=fields.Datetime.now)
     end_time = fields.Datetime(string="End Time")
     origin = fields.Char(string="Source Document", index=True)
     sale_order_line_id = fields.One2many('sale.order.line', 'working_id', string="Sale Order Line")
     partner_id = fields.Many2one('res.partner', string="Name")
     # parent_name = fields.Many2one('partner_id.name', string="Name")
-    partner_address = fields.Text(string="Address")
+    partner_address = fields.Text(string="Address", track_visibility='always')
     partner_phone = fields.Char(string="Phone", related='partner_id.phone')
     # assign = fields.Many2one('hr.employee', string="Assign", related='sale_order_line_id.assign_id')
     assign = fields.Many2one('hr.employee', string="Assign")
@@ -32,7 +32,7 @@ class Working(models.Model):
     # sale_order_id = fields.Many2one('sale.order')
     sale_id = fields.Many2one('sale.order', string="Sales Order")
 
-    show_get_job = fields.Boolean(computed='_compute_show_get_job')
+    show_get_job = fields.Boolean(compute='_compute_show_get_job')
     # show_get_job = fields.Boolean(default=True)
     # show_check_availability = fields.Boolean(computed='_compute_show_check_availability')
     # show_completed = fields.Boolean(computed='_compute_show_completed')
@@ -125,7 +125,29 @@ class Working(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('name', _('new')) == _('new'):
-            vals['name'] = self.env['ir.sequence'].next_by_code('working.sequence') or _('new')
+        if vals.get('name') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('working.sequence') or _('New')
         result = super(Working, self).create(vals)
+        result.env['mail.activity'].create({
+                'res_model': 'working',
+                'res_id': result.id,
+                'res_model_id': result.env['ir.model']._get('working').id,
+                'user_id': result.assign and result.assign.user_id and result.assign.user_id.id or None,
+        })
+
         return result
+
+    # @api.model
+    # def create_activity(self, vals):
+    #     print("activity Hoat Dong")
+    #     # super(Working, self).create_activity(vals)
+    #     self.env['mail.activity'].create({
+    #         # 'activity_type_id': self.activity_type,
+    #         # 'date_deadline': self.date_deadline,
+    #         'user_id': self.assign
+    #     })
+    #     # result = super(Working, self).create_activity(vals)
+    #     result = super(Working, self).create(vals)
+    #     return result
+
+
