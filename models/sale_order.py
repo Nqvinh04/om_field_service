@@ -34,20 +34,4 @@ class SaleOrder(models.Model):
             else:
                 print('ko tao moi')
 
-            # else:
-            #     self.working_ok_notification()
 
-    # def working_ok_notification_wizard(self):
-
-
-    # def working_ok_notification(self):
-    #     notification = {
-    #         'type': 'ir.actions.manager',
-    #         'tag': 'display_notification',
-    #         'params': {
-    #             'title': _('Notification'),
-    #             'message': _('Chua san sang'),
-    #             'sticky': False
-    #         }
-    #     }
-    #     return notification

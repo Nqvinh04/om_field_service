@@ -9,16 +9,13 @@ class Working(models.Model):
     # _inherit = 'sale.order.line'
 
     name = fields.Char(string="Working ID", copy=False, index=True, default=lambda self: _('New'))
-    # name_seq = fields.Char(string='Working ID', copy=False, readonly=True, index=True, default=lambda self: _('New'))
     start_time = fields.Datetime(string="Start Time", default=fields.Datetime.now)
     end_time = fields.Datetime(string="End Time")
     origin = fields.Char(string="Source Document", index=True)
     sale_order_line_id = fields.One2many('sale.order.line', 'working_id', string="Sale Order Line")
     partner_id = fields.Many2one('res.partner', string="Name")
-    # parent_name = fields.Many2one('partner_id.name', string="Name")
     partner_address = fields.Text(string="Address", track_visibility='always')
     partner_phone = fields.Char(string="Phone", related='partner_id.phone')
-    # assign = fields.Many2one('hr.employee', string="Assign", related='sale_order_line_id.assign_id')
     assign = fields.Many2one('hr.employee', string="Assign")
     state_working = fields.Selection([
         ('draft', 'Draft'),
@@ -33,15 +30,7 @@ class Working(models.Model):
     sale_id = fields.Many2one('sale.order', string="Sales Order")
 
     show_get_job = fields.Boolean(compute='_compute_show_get_job')
-    # show_get_job = fields.Boolean(default=True)
-    # show_check_availability = fields.Boolean(computed='_compute_show_check_availability')
-    # show_completed = fields.Boolean(computed='_compute_show_completed')
     show_completed = fields.Boolean(default=True)
-
-    # completed_work = fields.Selection([
-    #     ('incomplete', 'Incomplete'),
-    #     ('completed', 'Completed')
-    # ], string="Completed", default=False)
 
     def action_confirm(self):
         print("action")
@@ -52,9 +41,6 @@ class Working(models.Model):
         print(self._compute_show_get_job())
     print(show_get_job)
 
-    # def action_check_availability(self):
-    #     print("check_availability")
-
     def action_completed(self):
         print("Completed")
         print(self.show_completed)
@@ -63,17 +49,6 @@ class Working(models.Model):
             # rec.write_working()
         print(self._compute_show_completed())
 
-    # def write_working(self):
-    #     self.env['working'].write({
-    #         'end_time': fields.Datetime.now,
-    #     })
-
-    # def write_working(self, vals):
-    #     result = super(Working, self).write(vals)
-    #     self.env['working'].write({
-    #         'end_time': fields.Datetime.now,
-    #     })
-    #     return result
 
     def action_done(self):
         print("Done")
@@ -84,10 +59,6 @@ class Working(models.Model):
         print("Cancel")
         for rec in self:
             rec.state_working = 'cancel'
-
-    # @api.depends('state_working', 'sale_order_line_id')
-    # def _compute_show_check_availability(self):
-    #     print("show_check_availability")
 
     @api.depends('state_working', 'sale_order_line_id')
     def _compute_show_completed(self):
@@ -111,12 +82,6 @@ class Working(models.Model):
                 working.show_get_job = True
         print(self.show_get_job)
 
-    # @api.depends('sale_order_line_id.state', 'sale_order_line_id.working_id')
-    # def _compute_state_working(self):
-    #     for working in self:
-    #         if working.sale_order_line_id:
-    #             working.state_working == 'draft'
-
     def _set_start_time(self):
         for working in self:
             if working.state_working in ('done', 'cancel'):
@@ -134,20 +99,7 @@ class Working(models.Model):
                 'res_model_id': result.env['ir.model']._get('working').id,
                 'user_id': result.assign and result.assign.user_id and result.assign.user_id.id or None,
         })
-
         return result
 
-    # @api.model
-    # def create_activity(self, vals):
-    #     print("activity Hoat Dong")
-    #     # super(Working, self).create_activity(vals)
-    #     self.env['mail.activity'].create({
-    #         # 'activity_type_id': self.activity_type,
-    #         # 'date_deadline': self.date_deadline,
-    #         'user_id': self.assign
-    #     })
-    #     # result = super(Working, self).create_activity(vals)
-    #     result = super(Working, self).create(vals)
-    #     return result
 
 
