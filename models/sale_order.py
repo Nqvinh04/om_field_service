@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class SaleOrder(models.Model):
@@ -33,5 +34,8 @@ class SaleOrder(models.Model):
 
             else:
                 print('ko tao moi')
+                raise ValidationError(_(rec.product_id.id, 'Chua san sang'))
 
+            # else:
+            #     self.working_ok_notification()
 
