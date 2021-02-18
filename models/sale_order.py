@@ -14,14 +14,20 @@ class SaleOrder(models.Model):
     def action_view_work(self):
         print("thanh Cong")
 
+    """
+        Ham tinh working tren sale.order
+    """
     @api.depends('working_ids')
     def _compute_working_ids(self):
         for order in self:
             order.working_count = len(order.working_ids)
 
-
+    """
+        Ham tao working khi confirm tren sale.order
+    """
     def action_confirm(self):
         for rec in self.order_line:
+
             super(SaleOrder, self).action_confirm()
             if rec.type == 'service':
                 if rec.working_ok == True:
@@ -39,5 +45,11 @@ class SaleOrder(models.Model):
                     print('ko tao moi')
                     raise ValidationError(_('Sản phẩm "%s" chưa sẵn sàng', rec.product_id.name))
 
-            # else:
-            #     self.working_ok_notification()
+    # def write(self, vals):
+    #     res = super(SaleOrder, self).write(vals)
+    #     print("write")
+    #     return res
+
+ # if res.working_id == self.working_ids.id:
+
+

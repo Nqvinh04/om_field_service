@@ -28,8 +28,7 @@ class Working(models.Model):
         ('cancel', 'Cancelled'),
     ], string="Status", readonly=True, default='draft')
 
-    # note = fields.Text(string='Notes')
-    # sale_order_id = fields.Many2one('sale.order')
+
     sale_id = fields.Many2one('sale.order', string="Sales Order")
 
     show_get_job = fields.Boolean(compute='_compute_show_get_job')
