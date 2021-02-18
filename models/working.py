@@ -13,10 +13,13 @@ class Working(models.Model):
     end_time = fields.Datetime(string="End Time")
     origin = fields.Char(string="Source Document", index=True)
     sale_order_line_id = fields.One2many('sale.order.line', 'working_id', string="Sale Order Line")
+    product_id = fields.Many2one('product.product', string='Product', related='sale_order_line_id.product_id',
+                                 domain="[('type', 'in', ['service'])]")
     partner_id = fields.Many2one('res.partner', string="Name")
     partner_address = fields.Text(string="Address", track_visibility='always')
     partner_phone = fields.Char(string="Phone", related='partner_id.phone')
     assign = fields.Many2one('hr.employee', string="Assign")
+    company_id = fields.Many2one('res.company', string='Company')
     state_working = fields.Selection([
         ('draft', 'Draft'),
         ('confirmed', 'Confirm'),
@@ -25,7 +28,7 @@ class Working(models.Model):
         ('cancel', 'Cancelled'),
     ], string="Status", readonly=True, default='draft')
 
-    note = fields.Text(string='Notes')
+    # note = fields.Text(string='Notes')
     # sale_order_id = fields.Many2one('sale.order')
     sale_id = fields.Many2one('sale.order', string="Sales Order")
 
