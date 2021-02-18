@@ -34,8 +34,7 @@ class SaleOrder(models.Model):
 
             else:
                 print('ko tao moi')
-                raise ValidationError(_(rec.product_id.id, 'Chua san sang'))
+                raise ValidationError(_('Sản phẩm "%s" chưa sẵn sàng', rec.product_id.name))
 
             # else:
             #     self.working_ok_notification()
-
