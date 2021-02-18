@@ -18,11 +18,17 @@ class SaleOrder(models.Model):
         for order in self:
             order.working_count = len(order.working_ids)
 
+    # @api.model
+    # def create(self, vals):
+    #     result = super(SaleOrder, self).create()
+    #
+    #     return result
 
     def action_confirm(self):
         for rec in self.order_line:
             if rec.type == 'service' and rec.working_ok == True:
                 super(SaleOrder, self).action_confirm()
+                super(SaleOrder, self).create()
                 if rec.assign_id.id != self.working_ids.assign.id:
                     self.env['working'].create({
                         'partner_id': self.partner_id.id,
@@ -34,7 +40,7 @@ class SaleOrder(models.Model):
 
             else:
                 print('ko tao moi')
-                raise ValidationError(_(rec.product_id.id, 'Chua san sang'))
+                raise ValidationError(_('sản phẩm "%s" Chua san sang'))
 
             # else:
             #     self.working_ok_notification()
