@@ -1,3 +1,4 @@
+
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
@@ -21,20 +22,22 @@ class SaleOrder(models.Model):
 
     def action_confirm(self):
         for rec in self.order_line:
-            if rec.type == 'service' and rec.working_ok == True:
-                super(SaleOrder, self).action_confirm()
-                if rec.assign_id.id != self.working_ids.assign.id:
-                    self.env['working'].create({
-                        'partner_id': self.partner_id.id,
-                        'origin': self.name,
-                        'assign': rec.assign_id.id,
-                        'sale_order_line_id': rec,
-                        'sale_id': self.id,
-                    })
-
-            else:
-                print('ko tao moi')
-                raise ValidationError(_('Sản phẩm "%s" chưa sẵn sàng', rec.product_id.name))
+            super(SaleOrder, self).action_confirm()
+            if rec.type == 'service':
+                if rec.working_ok == True:
+                    if rec.assign_id.id != self.working_ids.assign.id:
+                        self.env['working'].create({
+                            'partner_id': self.partner_id.id,
+                            'origin': self.name,
+                            'assign': rec.assign_id.id,
+                            'sale_order_line_id': rec,
+                            'sale_id': self.id,
+                        })
+                    else:
+                        rec.working_id = self.working_ids.id
+                else:
+                    print('ko tao moi')
+                    raise ValidationError(_('Sản phẩm "%s" chưa sẵn sàng', rec.product_id.name))
 
             # else:
             #     self.working_ok_notification()
