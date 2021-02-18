@@ -35,17 +35,35 @@
                     </group>
                     <notebook>
                         <page string="Operations" name="operations">
-                            <field name="sale_order_line_id" mode="tree">
-                                <tree>
-                                    <field name="product_id"/>
-                                    <field name="name"/>
-                                    <field name="product_uom_qty"/>
-                                </tree>
-                            </field>
+                            <field name="sale_order_line_id"/>
+<!--                            <field name="sale_order_line_id" mode="tree">-->
+<!--                                <tree>-->
+<!--                                    <field name="product_id"/>-->
+<!--                                    <field name="name"/>-->
+<!--                                    <field name="product_uom_qty"/>-->
+<!--                                </tree>-->
+<!--                                <form>-->
+<!--                                    <group>-->
+<!--                                        <field name="product_id" domain="[('type', 'in', ['service'])]"/>-->
+<!--                                        <field name="company_id" invisible="1"/>-->
+<!--                                    </group>-->
+<!--                                </form>-->
+<!--                            </field>-->
+<!--                            <field name="product_id" model="tree">-->
+<!--                                <tree>-->
+<!--                                    <field name="name"/>-->
+<!--                                </tree>-->
+<!--                                <from>-->
+<!--                                    <group>-->
+<!--                                        <field name="name"/>-->
+<!--                                    </group>-->
+<!--                                </from>-->
+<!--                            </field>-->
+                            <field name="id" invisible="1"/>
                         </page>
-                        <page string="Note" name="note">
-                           <field name="note" string="Note" placeholder="Add an internal note that will be printed on the Picking Operations sheet"/>
-                        </page>
+<!--                        <page string="Note" name="note">-->
+<!--                           <field name="note" string="Note" placeholder="Add an internal note that will be printed on the Picking Operations sheet"/>-->
+<!--                        </page>-->
                     </notebook>
                 </sheet>
                  <div class="oe_chatter">
@@ -68,6 +86,7 @@
                 <field name="start_time"/>
                 <field name="partner_id"/>
                 <field name="assign"/>
+                <field name="company_id" invisible="1"/>
                 <field name="state_working" widget="badge" decoration-success="state_working == 'done'" decoration-info="state_working not in ('done', 'cancel')"/>
                 <button name="action_completed" string=" Complete" type="object" class="oe_highlight"/>
             </tree>
