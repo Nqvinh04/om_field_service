@@ -57,6 +57,8 @@ class Working(models.Model):
             if working.state_working in ('done', 'cancel'):
                 raise UserError(_("You cannot change the Scheduled Date on a done or cancelled transfer."))
             # working.move_lines.write({'date': working.start_time})
+
+
     """
         Tao activity toi nguoi dc assign    
     """
