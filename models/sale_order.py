@@ -26,6 +26,7 @@ class SaleOrder(models.Model):
         Ham tao working khi confirm tren sale.order
     """
     def action_confirm(self):
+        print("Confirm")
         for rec in self.order_line:
             super(SaleOrder, self).action_confirm()
             if rec.type == 'service':

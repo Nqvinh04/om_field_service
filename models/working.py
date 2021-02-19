@@ -11,7 +11,7 @@ class Working(models.Model):
     name = fields.Char(string="Working ID", copy=False, index=True, default=lambda self: _('New'))
     start_time = fields.Datetime(string="Start Time", default=fields.Datetime.now)
     end_time = fields.Datetime(string="End Time")
-    origin = fields.Char(string="Source Document", index=True)
+    origin = fields.Char(string="Order ID", index=True)
     sale_order_line_id = fields.One2many('sale.order.line', 'working_id', string="Sale Order Line")
     product_id = fields.Many2one('product.product', string='Product', related='sale_order_line_id.product_id',
                                  domain="[('type', 'in', ['service'])]")
@@ -87,7 +87,7 @@ class Working(models.Model):
     """
     @api.model
     def create(self, vals):
-        if vals.get('name') == 'New':
+        if vals.get('name', _('New')) == 'New':
             vals['name'] = self.env['ir.sequence'].next_by_code('working.sequence') or _('New')
         result = super(Working, self).create(vals)
         result.env['mail.activity'].create({
