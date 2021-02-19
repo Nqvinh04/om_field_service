@@ -29,8 +29,9 @@
                         <group>
                             <field name="assign"/>
                             <field name="start_time"/>
-                            <field name="end_time"/>
-                            <field name="origin" placeholder="e.g.SO0001"/>
+                            <field name="end_time" invisible="1"/>
+                            <field name="origin" placeholder="e.g.SO0001" invisible="1"/>
+                            <field name="sale_id" placeholder="e.g.SO0001" />
                         </group>
                     </group>
                     <notebook>
