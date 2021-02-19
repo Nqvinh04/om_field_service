@@ -27,7 +27,6 @@ class SaleOrder(models.Model):
     """
     def action_confirm(self):
         for rec in self.order_line:
-
             super(SaleOrder, self).action_confirm()
             if rec.type == 'service':
                 if rec.working_ok == True:
@@ -45,11 +44,12 @@ class SaleOrder(models.Model):
                     print('ko tao moi')
                     raise ValidationError(_('Sản phẩm "%s" chưa sẵn sàng', rec.product_id.name))
 
-    # def write(self, vals):
-    #     res = super(SaleOrder, self).write(vals)
-    #     print("write")
-    #     return res
+        # def write(self, vals):
+        #     res = super(SaleOrder, self).write(vals)
+        #     print("write")
+        #     return res
 
- # if res.working_id == self.working_ids.id:
+
+
 
 
