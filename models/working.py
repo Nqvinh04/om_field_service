@@ -41,7 +41,7 @@ class Working(models.Model):
             rec.state_working = 'confirmed'
             print(rec.show_get_job)
         print(self._compute_show_get_job())
-    print(show_get_job)
+    # print(show_get_job)
 
     def action_completed(self):
         print("Completed")
