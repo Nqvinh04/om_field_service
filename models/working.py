@@ -37,9 +37,12 @@ class Working(models.Model):
     def action_confirm(self):
         for rec in self:
             rec.state_working = 'confirmed'
-        #     print(rec.show_get_job)
-        # print(self._compute_show_get_job())
-    # print(show_get_job)
+
+
+    @api.onchange('sale_id')
+    def update_working(self):
+        if self.sale_id:
+            self.partner_id = self.sale_id.partner_id
 
     def action_completed(self):
         for rec in self:
