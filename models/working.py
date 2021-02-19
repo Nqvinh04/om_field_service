@@ -30,11 +30,9 @@ class Working(models.Model):
         ('cancel', 'Cancelled'),
     ], string="Status", readonly=True, default='draft')
 
-
     sale_id = fields.Many2one('sale.order', string="Sales Order")
-
-    show_get_job = fields.Boolean(compute='_compute_show_get_job')
-    show_completed = fields.Boolean(default=True)
+    # show_get_job = fields.Boolean(compute='_compute_show_get_job')
+    # show_completed = fields.Boolean(default=True, compute='_compute_show_completed')
 
     def action_confirm(self):
         print("action")
@@ -53,7 +51,6 @@ class Working(models.Model):
             # rec.write_working()
         print(self._compute_show_completed())
 
-
     def action_done(self):
         print("Done")
         for rec in self:
@@ -64,27 +61,25 @@ class Working(models.Model):
         for rec in self:
             rec.state_working = 'cancel'
 
-    @api.depends('state_working', 'sale_order_line_id')
-    def _compute_show_completed(self):
-        print("show_completed")
-        for working in self:
-            if working.state_working != 'done':
-                working.show_completed = False
-            else:
-                working.show_completed = True
-            print(self.show_completed)
+    # @api.depends('state_working')
+    # def _compute_show_completed(self):
+    #     print("show_completed")
+    #     for working in self:
+    #         if working.state_working != 'done':
+    #             working.show_completed = False
+    #         else:
+    #             working.show_completed = True
+    #         print(self.show_completed)
 
-
-
-    @api.depends('state_working', 'sale_order_line_id')
-    def _compute_show_get_job(self):
-        print("Hoạt động")
-        for working in self:
-            if working.state_working != 'draft':
-                working.show_get_job = False
-            else:
-                working.show_get_job = True
-        print(self.show_get_job)
+    # @api.depends('state_working')
+    # def _compute_show_get_job(self):
+    #     print("Hoạt động")
+    #     for working in self:
+    #         if working.state_working != 'draft':
+    #             working.show_get_job = False
+    #         else:
+    #             working.show_get_job = True
+    #     print(self.show_get_job)
 
     def _set_start_time(self):
         for working in self:
