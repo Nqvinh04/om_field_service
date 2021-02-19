@@ -35,8 +35,6 @@ class Working(models.Model):
     # show_completed = fields.Boolean(default=True, compute='_compute_show_completed')
 
     def action_confirm(self):
-        print("action")
-        print(self.show_get_job)
         for rec in self:
             rec.state_working = 'confirmed'
             print(rec.show_get_job)
@@ -44,8 +42,6 @@ class Working(models.Model):
     # print(show_get_job)
 
     def action_completed(self):
-        print("Completed")
-        print(self.show_completed)
         for rec in self:
             rec.state_working = 'done'
             # rec.write_working()

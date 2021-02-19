@@ -10,7 +10,7 @@
                 <header>
                     <button name="action_confirm" attrs="{'invisible': [('state_working','!=','draft')]}"  string="Confirm" type="object" class="oe_highlight" />
                     <button name="action_completed" attrs="{'invisible': [('state_working','!=','confirmed')]}" string="Complete" type="object" class="oe_highlight" />
-                    <button name="action_cancel" attrs="{'invisible': [('state_working','!=','done')]}" string="Cancel" type="object"/>
+                    <button name="action_cancel" attrs="{'invisible': [('state_working','=','done')]}" string="Cancel" type="object"/>
                     <field name="state_working" widget="statusbar" statusbar_visible="draft,confirmed,completed,done"/>
                 </header>
                 <sheet>
