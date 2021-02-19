@@ -20,6 +20,8 @@ class Working(models.Model):
     partner_phone = fields.Char(string="Phone", related='partner_id.phone')
     assign = fields.Many2one('hr.employee', string="Assign")
     company_id = fields.Many2one('res.company', string='Company')
+    user_id = fields.Many2one('res.users', string='User', track_visibility='onchange', readonly=True,
+                              state_working={'draft': [('readonly', False)]}, default=lambda self: self.env.user)
     state_working = fields.Selection([
         ('draft', 'Draft'),
         ('confirmed', 'Confirm'),
