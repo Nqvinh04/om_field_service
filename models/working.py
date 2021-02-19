@@ -37,15 +37,10 @@ class Working(models.Model):
     def action_confirm(self):
         for rec in self:
             rec.state_working = 'confirmed'
-        #     print(rec.show_get_job)
-        # print(self._compute_show_get_job())
-    # print(show_get_job)
 
     def action_completed(self):
         for rec in self:
             rec.state_working = 'done'
-            # rec.write_working()
-        # print(self._compute_show_completed())
 
     def action_done(self):
         print("Done")
@@ -56,26 +51,6 @@ class Working(models.Model):
         print("Cancel")
         for rec in self:
             rec.state_working = 'cancel'
-
-    # @api.depends('state_working')
-    # def _compute_show_completed(self):
-    #     print("show_completed")
-    #     for working in self:
-    #         if working.state_working != 'done':
-    #             working.show_completed = False
-    #         else:
-    #             working.show_completed = True
-    #         print(self.show_completed)
-
-    # @api.depends('state_working')
-    # def _compute_show_get_job(self):
-    #     print("Hoạt động")
-    #     for working in self:
-    #         if working.state_working != 'draft':
-    #             working.show_get_job = False
-    #         else:
-    #             working.show_get_job = True
-    #     print(self.show_get_job)
 
     def _set_start_time(self):
         for working in self:
