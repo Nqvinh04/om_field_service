@@ -37,15 +37,15 @@ class Working(models.Model):
     def action_confirm(self):
         for rec in self:
             rec.state_working = 'confirmed'
-            print(rec.show_get_job)
-        print(self._compute_show_get_job())
+        #     print(rec.show_get_job)
+        # print(self._compute_show_get_job())
     # print(show_get_job)
 
     def action_completed(self):
         for rec in self:
             rec.state_working = 'done'
             # rec.write_working()
-        print(self._compute_show_completed())
+        # print(self._compute_show_completed())
 
     def action_done(self):
         print("Done")
